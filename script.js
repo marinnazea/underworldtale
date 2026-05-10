@@ -176,6 +176,57 @@ function mostrarSeccion(seccion) {
   }
 }
 
+function cargarPersonajes(categoria) {
+  seccionActual = categoria
+
+  var lista = personajes.filter(function(p) {
+    return categoria == "todos" ? true : p.categoria == categoria
+  })
+
+  var slides = ""
+  lista.forEach(function(p) {
+    slides += `
+      <div class="swiper-slide">
+        <article class="tarjeta-personaje">
+          <img src="${p.imagen}" alt="${p.nombre}" class="tarjeta-personaje-imagen">
+          <div class="tarjeta-personaje-contenido">
+            <div class="tarjeta-personaje-nombre">${p.nombre}</div>
+            <p class="tarjeta-personaje-signo">✦ ${p.signo}</p>
+            <p class="tarjeta-personaje-desc">${p.descripcion}</p>
+            <div class="tarjeta-personaje-datos">
+              <div class="tarjeta-dato"><span class="label">Le gusta:</span><span class="valor">${p.gustos}</span></div>
+              <div class="tarjeta-dato"><span class="label">No le gusta:</span><span class="valor">${p.noLeGusta}</span></div>
+            </div>
+          </div>
+        </article>
+      </div>`
+  })
+
+  cambiarContenido(`
+    <div class="swiper personajes-swiper">
+      <div class="swiper-wrapper">${slides}</div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+  `, function() {
+    new Swiper(".personajes-swiper", {
+      slidesPerView: 1,
+      spaceBetween: 24,
+      loop: lista.length > 1,
+      pagination: { el: ".swiper-pagination", clickable: true },
+      navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }
+    })
+    gsap.from(".tarjeta-personaje", { opacity: 0, y: 20, duration: 0.5 })
+  })
+}
+
+function filtrarSubcategoria(sub, btn) {
+  $(".btn-subcategoria").removeClass("active")
+  $(btn).addClass("active")
+  cargarPersonajes(sub)
+}
+
 function cargarInicio() {
   cambiarContenido(`
     <section class="inicio-card">
