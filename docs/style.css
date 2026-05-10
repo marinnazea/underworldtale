@@ -806,12 +806,14 @@ textarea.form-campo { resize: vertical; min-height: 110px; }
   }
 
   .inicio-nota {
-    font-size: 0.65em;
-    left: 14px;
-    bottom: 14px;
-    padding: 12px 16px;
-    max-width: 85%;
-    line-height: 1.8;
+    font-size: 0.52em;
+    left: 10px;
+    bottom: 10px;
+    padding: 8px 12px;
+    max-width: 90%;
+    line-height: 1.5;
+    letter-spacing: 1px;
+    transform: rotate(-2deg);
   }
 
   .inicio-descripcion {
