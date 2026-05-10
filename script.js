@@ -108,3 +108,91 @@ var personajes = [
     noLeGusta: "Los que subestiman su fuerza"
   }
 ]
+
+let seccionActual = "inicio"
+
+$(document).ready(function() {
+  document.getElementById("subcategorias-personajes").style.display = "none"
+  document.getElementById("subcategorias-episodios").style.display = "none"
+
+  gsap.from(".header",      { duration: 0.8, opacity: 0, y: -30, ease: "power2.out" })
+  gsap.from(".categorias",  { duration: 0.6, opacity: 0, y: -10, delay: 0.5, ease: "power2.out" })
+  gsap.from(".reproductor", { duration: 0.6, opacity: 0, y: -20, delay: 1,   ease: "power2.out" })
+
+  mostrarSeccion("inicio")
+
+  const audio = document.getElementById("musicaFondo")
+  audio.volume = 0.5
+
+  audio.play().then(() => {
+    document.getElementById("btnPlay").textContent = "❚❚"
+  }).catch(() => {})
+
+  $("#btnPlay").click(function() {
+    if (audio.paused) {
+      audio.play()
+      $(this).text("❚❚")
+    } else {
+      audio.pause()
+      $(this).text("▶")
+    }
+  })
+
+  document.getElementById("volumen").addEventListener("input", function() {
+    audio.volume = this.value
+  })
+})
+
+function cambiarContenido(html, alTerminar) {
+  const grid = document.getElementById("personajesGrid")
+  gsap.to(grid, {
+    opacity: 0, duration: 0.15,
+    onComplete: function() {
+      grid.innerHTML = html
+      if (alTerminar) alTerminar()
+      gsap.to(grid, { opacity: 1, duration: 0.3 })
+    }
+  })
+}
+
+function mostrarSeccion(seccion) {
+  document.querySelectorAll(".btn-categoria").forEach(b => b.classList.remove("active"))
+  document.getElementById("btn-" + seccion).classList.add("active")
+
+  document.getElementById("subcategorias-personajes").style.display = "none"
+  document.getElementById("subcategorias-episodios").style.display = "none"
+
+  if (seccion == "inicio") {
+    cargarInicio()
+  } else if (seccion == "personajes") {
+    $("#subcategorias-personajes").fadeIn(200)
+    document.querySelectorAll("#subcategorias-personajes .btn-subcategoria").forEach(b => b.classList.remove("active"))
+    document.querySelector("#subcategorias-personajes .btn-subcategoria").classList.add("active")
+    cargarPersonajes("melinoe")
+  } else if (seccion == "episodios") {
+    verEpisodios()
+  } else if (seccion == "contacto") {
+    abrirContacto()
+  }
+}
+
+function cargarInicio() {
+  cambiarContenido(`
+    <section class="inicio-card">
+      <img src="./images/Fondo Inicio.png" alt="Inicio" class="inicio-imagen">
+      <p class="inicio-nota">DESCIENDE AL INFRAMUNDO<br>Y ESCRIBE TU DESTINO JUNTO A MELINOË.<br>DESCUBRE AMORES PROHIBIDOS,<br>PACTOS DIVINOS Y SECRETOS<br>QUE JAMÁS DEBIERON DESPERTAR.</p>
+    </section>
+    <section class="inicio-descripcion">
+      <p>En esta novela visual descenderás al <strong>Inframundo</strong>, un reino lleno de sombras, secretos y dioses antiguos. Allí conocerás a <strong>Melinoë</strong>, una presencia misteriosa ligada a los fantasmas, la noche y los caminos entre la vida y la muerte.</p>
+      <p>A través de tus decisiones, podrás explorar lugares ocultos, formar vínculos con personajes divinos y descubrir romances oscuros, peligrosos y fascinantes. Cada elección marcará tu destino en una historia donde el amor, el miedo y la magia se mezclan bajo la mirada de los dioses.</p>
+    </section>
+    <div class="inicio-botones">
+      <button class="btn-inicio-accion btn-personajes-accion" onclick="mostrarSeccion('personajes')">Personajes</button>
+      <button class="btn-inicio-accion btn-jugar-accion" onclick="mostrarSeccion('episodios')">Jugar</button>
+    </div>
+  `, function() {
+    gsap.from(".inicio-card",        { opacity: 0, y: 20, duration: 0.5 })
+    gsap.from(".inicio-descripcion", { opacity: 0, y: 20, duration: 0.5, delay: 0.15 })
+    gsap.from(".inicio-botones",     { opacity: 0, y: 20, duration: 0.5, delay: 0.28 })
+  })
+}
