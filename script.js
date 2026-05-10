@@ -366,7 +366,7 @@ function montarFormulario() {
     var $btn = $(".btn-enviar").prop("disabled", true).text("Enviando...")
 
     $.ajax({
-      url: "https://formspree.io/f/TU_ID_AQUI",
+      url: "https://formspree.io/f/xwvywgwo",
       method: "POST",
       data: $(this).serialize(),
       headers: { "Accept": "application/json" },
