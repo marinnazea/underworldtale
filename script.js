@@ -227,6 +227,40 @@ function filtrarSubcategoria(sub, btn) {
   cargarPersonajes(sub)
 }
 
+function verEpisodios() {
+  var eps = [
+    { num: 1, titulo: "Episodio 1", texto: "El descenso comienza. Melinoë despierta en los confines del Inframundo y da sus primeros pasos entre las sombras." },
+    { num: 2, titulo: "Episodio 2", texto: "Los vínculos se forjan. Nuevos encuentros, decisiones difíciles y secretos que empiezan a salir a la luz." },
+    { num: 3, titulo: "Episodio 3", texto: "El destino se escribe. Las elecciones del pasado pesan y los dioses comienzan a mover sus fichas." }
+  ]
+
+  var html = ""
+  eps.forEach(function(ep) {
+    html += `
+      <article class="episodio-card">
+        <div class="episodio-numero">Ep. ${ep.num}</div>
+        <h2 class="episodio-titulo">${ep.titulo}</h2>
+        <p class="episodio-desc">${ep.texto}</p>
+        <button class="btn-jugar-ep" onclick="pantallaProximamente()">Jugar</button>
+      </article>`
+  })
+
+  cambiarContenido(html, function() {
+    gsap.from(".episodio-card", { opacity: 0, y: 25, duration: 0.4, stagger: 0.1 })
+  })
+}
+
+function pantallaProximamente() {
+  cambiarContenido(`
+    <div class="proximamente-pantalla">
+      <p class="proximamente-texto">Próximamente...</p>
+      <button class="btn-volver" onclick="verEpisodios()">← Volver</button>
+    </div>
+  `, function() {
+    gsap.from(".proximamente-pantalla", { opacity: 0, scale: 0.95, duration: 0.5 })
+  })
+}
+
 function cargarInicio() {
   cambiarContenido(`
     <section class="inicio-card">
