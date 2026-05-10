@@ -738,34 +738,154 @@ textarea.form-campo { resize: vertical; min-height: 110px; }
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-  .header h1 { font-size: 1.9em; }
+  body {
+    background-attachment: scroll;
+    font-size: 16px;
+  }
+
+  .header {
+    padding: 32px 16px 24px;
+  }
+
+  .header h1 {
+    font-size: 1.7em;
+    letter-spacing: 1px;
+  }
+
+  .header-subtitle {
+    font-size: 0.75em;
+    letter-spacing: 1.5px;
+  }
+
+  .header::after {
+    font-size: 0.85em;
+    letter-spacing: 6px;
+  }
+
+  .categorias {
+    gap: 8px;
+    padding: 18px 12px;
+  }
+
+  .btn-categoria {
+    padding: 9px 16px;
+    font-size: 0.68em;
+    letter-spacing: 1px;
+  }
+
+  .subcategorias {
+    gap: 7px;
+    padding: 0 12px 16px;
+  }
+
+  .btn-subcategoria {
+    padding: 7px 14px;
+    font-size: 0.65em;
+  }
+
+  .main-container {
+    margin: 16px auto;
+    padding: 0 12px;
+  }
 
   .tarjeta-personaje {
     grid-template-columns: 1fr;
   }
 
-  .categorias { gap: 10px; }
+  .tarjeta-personaje-imagen {
+    height: 280px;
+    object-position: top;
+  }
 
-  .btn-categoria {
-    padding: 10px 20px;
-    font-size: 0.72em;
+  .tarjeta-personaje-contenido {
+    padding: 20px;
+  }
+
+  .tarjeta-personaje-nombre {
+    font-size: 1.15em;
+  }
+
+  .inicio-nota {
+    font-size: 0.65em;
+    left: 14px;
+    bottom: 14px;
+    padding: 12px 16px;
+    max-width: 85%;
+    line-height: 1.8;
+  }
+
+  .inicio-descripcion {
+    padding: 20px;
+  }
+
+  .inicio-botones {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .episodio-card {
+    padding: 22px 20px;
+  }
+
+  .episodio-titulo {
+    font-size: 1.2em;
+  }
+
+  .contacto-titulo {
+    font-size: 1.2em;
+  }
+
+  .contacto-form-box,
+  .contacto-libros-box {
+    padding: 20px;
+  }
+
+  .reproductor {
+    top: 12px;
+    right: 12px;
+    padding: 7px 12px;
+    gap: 7px;
+  }
+
+  #volumen {
+    width: 55px;
+  }
+
+  .proximamente-texto {
+    font-size: 1.4em;
+    letter-spacing: 2px;
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  .personajes-swiper {
+    padding-bottom: 40px !important;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none;
   }
 }
 
-@media (max-width: 480px) {
-  .header { padding: 30px 15px 22px; }
-  .header h1 { font-size: 1.4em; }
-
-  .main-container {
-    padding: 0 10px;
+@media (max-width: 380px) {
+  .header h1 {
+    font-size: 1.3em;
   }
 
-  .tarjeta-personaje {
-    grid-template-columns: 1fr;
-    max-width: 100%;
+  .btn-categoria {
+    padding: 8px 12px;
+    font-size: 0.62em;
   }
 
-  .tarjeta-personaje-imagen { height: 260px; }
+  .tarjeta-personaje-imagen {
+    height: 220px;
+  }
+
+  .inicio-nota {
+    font-size: 0.58em;
+    line-height: 1.6;
+  }
 }
 
 /* sobreescribir Bootstrap */
