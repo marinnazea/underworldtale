@@ -261,6 +261,129 @@ function pantallaProximamente() {
   })
 }
 
+function abrirContacto() {
+  cambiarContenido(`
+    <div class="contacto-wrapper">
+      <h2 class="contacto-titulo text-center mb-4">Envía un mensaje al Inframundo</h2>
+      <div class="container-fluid">
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="contacto-form-box">
+              <form id="contactForm" novalidate>
+                <input class="form-campo" type="text" name="nombre" placeholder="Tu nombre" required>
+                <p class="form-error-msg" id="err-nombre">Por favor introduce tu nombre.</p>
+                <input class="form-campo" type="email" name="email" placeholder="Tu email" required>
+                <p class="form-error-msg" id="err-email">Introduce un email válido.</p>
+                <textarea class="form-campo" name="mensaje" placeholder="Tu mensaje..." rows="5" required></textarea>
+                <p class="form-error-msg" id="err-mensaje">El mensaje no puede estar vacío.</p>
+                <button type="submit" class="btn-enviar">Enviar mensaje</button>
+                <p class="form-feedback ok" id="form-ok">¡Mensaje enviado! Los dioses han sido notificados.</p>
+                <p class="form-feedback err" id="form-err">Algo salió mal. Inténtalo de nuevo.</p>
+              </form>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="contacto-libros-box">
+              <h3 class="contacto-titulo" style="font-size:1.1em; margin-bottom:16px;">📚 Lecturas del Inframundo</h3>
+              <div id="librosContainer"><p class="libros-loading">Consultando los archivos divinos...</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `, function() {
+    gsap.from(".contacto-form-box",   { opacity: 0, y: 20, duration: 0.4 })
+    gsap.from(".contacto-libros-box", { opacity: 0, y: 20, duration: 0.4, delay: 0.12 })
+    cargarLibros()
+    montarFormulario()
+  })
+}
+
+function cargarLibros() {
+  fetch("https://openlibrary.org/search.json?q=greek+mythology+hades&limit=4&fields=title,author_name,cover_i,first_publish_year")
+    .then(res => res.json())
+    .then(data => {
+      var libros = data.docs.slice(0, 4)
+      var html = ""
+
+      libros.forEach(function(libro) {
+        var portada = libro.cover_i
+          ? `<img src="https://covers.openlibrary.org/b/id/${libro.cover_i}-M.jpg" alt="${libro.title}" class="libro-cover">`
+          : `<div class="libro-cover-placeholder">📖</div>`
+
+        var autor = libro.author_name ? libro.author_name[0] : "Autor desconocido"
+        var año = libro.first_publish_year || ""
+
+        html += `
+          <div class="libro-card">
+            ${portada}
+            <div class="libro-info">
+              <p class="libro-titulo">${libro.title}</p>
+              <p class="libro-autor">${autor}</p>
+              ${año ? `<p class="libro-año">${año}</p>` : ""}
+            </div>
+          </div>`
+      })
+
+      $("#librosContainer").html(html)
+      gsap.from(".libro-card", { opacity: 0, x: 20, duration: 0.4, stagger: 0.1 })
+    })
+    .catch(function() {
+      $("#librosContainer").html("<p class='libros-loading'>No se pudieron cargar los libros.</p>")
+    })
+}
+
+function montarFormulario() {
+  $("#contactForm").on("submit", function(e) {
+    e.preventDefault()
+
+    $(".form-campo").removeClass("error")
+    $(".form-error-msg").hide()
+    $("#form-ok, #form-err").hide()
+
+    var nombre  = $("[name='nombre']").val().trim()
+    var email   = $("[name='email']").val().trim()
+    var mensaje = $("[name='mensaje']").val().trim()
+    var hayError = false
+
+    if (!nombre) {
+      $("[name='nombre']").addClass("error")
+      $("#err-nombre").show()
+      hayError = true
+    }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      $("[name='email']").addClass("error")
+      $("#err-email").show()
+      hayError = true
+    }
+    if (!mensaje) {
+      $("[name='mensaje']").addClass("error")
+      $("#err-mensaje").show()
+      hayError = true
+    }
+    if (hayError) return
+
+    var $btn = $(".btn-enviar").prop("disabled", true).text("Enviando...")
+
+    $.ajax({
+      url: "https://formspree.io/f/TU_ID_AQUI",
+      method: "POST",
+      data: $(this).serialize(),
+      headers: { "Accept": "application/json" },
+      success: function() {
+        $("#form-ok").fadeIn()
+        document.getElementById("contactForm").reset()
+      },
+      error: function() {
+        $("#form-err").fadeIn()
+      },
+      complete: function() {
+        $btn.prop("disabled", false).text("Enviar mensaje")
+      }
+    })
+  })
+}
+
 function cargarInicio() {
   cambiarContenido(`
     <section class="inicio-card">
