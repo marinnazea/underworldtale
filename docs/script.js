@@ -11,7 +11,7 @@ var personajes = [
   {
     nombre: "Hades",
     categoria: "inframundo",
-    imagen: "./images/Hades.PNG",
+    imagen: "./images/Hades.png",
     signo: "Escorpio",
     descripcion: "El soberano absoluto del inframundo. Un líder sabio y justo que mantiene el equilibrio entre la vida y la muerte.",
     gustos: "El orden, el silencio y Perséfone",
@@ -29,7 +29,7 @@ var personajes = [
   {
     nombre: "Hermes",
     categoria: "mis_coqueteos",
-    imagen: "./images/Hermes.PNG",
+    imagen: "./images/Hermes.png",
     signo: "Géminis",
     descripcion: "El dios más veloz del Olimpo. Siempre tiene una sonrisa y una palabra perfecta para cada momento.",
     gustos: "Correr, charlar y los retos",
@@ -47,7 +47,7 @@ var personajes = [
   {
     nombre: "Perséfone",
     categoria: "inframundo",
-    imagen: "./images/Perséfone.PNG",
+    imagen: "./images/Perséfone.png",
     signo: "Tauro",
     descripcion: "La reina del inframundo, símbolo de esperanza y renovación. Su presencia ilumina incluso las tinieblas más profundas.",
     gustos: "Las flores, la primavera y Hades",
@@ -56,7 +56,7 @@ var personajes = [
   {
     nombre: "Makaria",
     categoria: "inframundo",
-    imagen: "./images/Makaria.PNG",
+    imagen: "./images/Makaria.png",
     signo: "Virgo",
     descripcion: "Diosa de la muerte bienaventurada. Serena y misteriosa, vela por quienes pasan al otro lado con paz.",
     gustos: "La tranquilidad y las almas en paz",
@@ -65,7 +65,7 @@ var personajes = [
   {
     nombre: "Zagreo",
     categoria: "inframundo",
-    imagen: "./images/Zagreo.PNG",
+    imagen: "./images/Zagreo.png",
     signo: "Sagitario",
     descripcion: "Príncipe del inframundo, hijo de Hades. Rebelde e incansable, busca su propio camino más allá de las sombras.",
     gustos: "La libertad, Thanatos y los desafíos",
@@ -74,7 +74,7 @@ var personajes = [
   {
     nombre: "???",
     categoria: "inframundo",
-    imagen: "./images/Kronos.PNG",
+    imagen: "./images/Kronos.png",
     signo: "???",
     descripcion: "Hay seres tan antiguos y temidos que ni siquiera pueden ser nombrados. Su sola presencia hace temblar los pilares del inframundo.",
     gustos: "???",
@@ -83,7 +83,7 @@ var personajes = [
   {
     nombre: "Thanatos",
     categoria: "inframundo",
-    imagen: "./images/Thanatos.PNG",
+    imagen: "./images/Thanatos.png",
     signo: "Capricornio",
     descripcion: "Dios de la muerte apacible. Hermano de Hipnos, lleva las almas con una calma inquebrantable y una frialdad que pocos se atreven a desafiar.",
     gustos: "El silencio, el orden y el deber",
@@ -92,7 +92,7 @@ var personajes = [
   {
     nombre: "Apolo",
     categoria: "olimpo",
-    imagen: "./images/Apolo.PNG",
+    imagen: "./images/Apolo.png",
     signo: "Leo",
     descripcion: "Dios del sol, la música y la profecía. Brillante y carismático, su luz lo llena todo y su lira resuena hasta en el inframundo.",
     gustos: "La música, la poesía y ser el centro de atención",
@@ -101,7 +101,7 @@ var personajes = [
   {
     nombre: "Artemisa",
     categoria: "olimpo",
-    imagen: "./images/Artemisa.PNG",
+    imagen: "./images/Artemisa.png",
     signo: "Leo",
     descripcion: "Diosa de la caza y la luna. Independiente y feroz, protege a los suyos con una determinación que no conoce límites.",
     gustos: "La naturaleza, la luna y la libertad",
@@ -387,7 +387,7 @@ function montarFormulario() {
 function cargarInicio() {
   cambiarContenido(`
     <section class="inicio-card">
-      <img src="./images/Fondo Inicio.PNG" alt="Inicio" class="inicio-imagen">
+      <img src="./images/Fondo Inicio.png" alt="Inicio" class="inicio-imagen">
       <p class="inicio-nota">DESCIENDE AL INFRAMUNDO<br>Y ESCRIBE TU DESTINO JUNTO A MELINOË.<br>DESCUBRE AMORES PROHIBIDOS,<br>PACTOS DIVINOS Y SECRETOS<br>QUE JAMÁS DEBIERON DESPERTAR.</p>
     </section>
     <section class="inicio-descripcion">
