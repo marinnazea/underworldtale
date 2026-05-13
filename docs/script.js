@@ -171,6 +171,8 @@ function mostrarSeccion(seccion) {
     cargarPersonajes("melinoe")
   } else if (seccion == "episodios") {
     verEpisodios()
+  } else if (seccion == "libros") {
+    abrirBuscadorLibros()
   } else if (seccion == "contacto") {
     abrirContacto()
   }
@@ -261,45 +263,21 @@ function pantallaProximamente() {
   })
 }
 
-function abrirContacto() {
+function abrirBuscadorLibros() {
   cambiarContenido(`
     <div class="contacto-wrapper">
-      <h2 class="contacto-titulo text-center mb-4">Envía un mensaje al Inframundo</h2>
-      <div class="container-fluid">
-        <div class="row g-4">
-          <div class="col-md-6">
-            <div class="contacto-form-box">
-              <form id="contactForm" novalidate>
-                <input class="form-campo" type="text" name="nombre" placeholder="Tu nombre" required>
-                <p class="form-error-msg" id="err-nombre">Por favor introduce tu nombre.</p>
-                <input class="form-campo" type="email" name="email" placeholder="Tu email" required>
-                <p class="form-error-msg" id="err-email">Introduce un email válido.</p>
-                <textarea class="form-campo" name="mensaje" placeholder="Tu mensaje..." rows="5" required></textarea>
-                <p class="form-error-msg" id="err-mensaje">El mensaje no puede estar vacío.</p>
-                <button type="submit" class="btn-enviar">Enviar mensaje</button>
-                <p class="form-feedback ok" id="form-ok">¡Mensaje enviado! Los dioses han sido notificados.</p>
-                <p class="form-feedback err" id="form-err">Algo salió mal. Inténtalo de nuevo.</p>
-              </form>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="contacto-libros-box">
-              <h3 class="contacto-titulo" style="font-size:1.1em; margin-bottom:16px;">📚 Lecturas del Inframundo</h3>
-              <div class="libros-buscar">
-                <input type="text" id="libroBusqueda" class="form-campo libros-input" placeholder="Busca un libro...">
-                <button id="btnBuscarLibro" class="btn-buscar-libro">Buscar</button>
-              </div>
-              <div id="librosContainer"><p class="libros-loading">Consultando los archivos divinos...</p></div>
-            </div>
-          </div>
+      <h2 class="contacto-titulo text-center mb-4">Busca tu libro</h2>
+      <div class="contacto-libros-box">
+        <div class="libros-buscar">
+          <input type="text" id="libroBusqueda" class="form-campo libros-input" placeholder="Busca un libro...">
+          <button id="btnBuscarLibro" class="btn-buscar-libro">Buscar</button>
         </div>
+        <div id="librosContainer"><p class="libros-loading">Consultando los archivos divinos...</p></div>
       </div>
     </div>
   `, function() {
-    gsap.from(".contacto-form-box",   { opacity: 0, y: 20, duration: 0.4 })
-    gsap.from(".contacto-libros-box", { opacity: 0, y: 20, duration: 0.4, delay: 0.12 })
+    gsap.from(".contacto-libros-box", { opacity: 0, y: 20, duration: 0.4 })
     cargarLibros("greek mythology hades")
-    montarFormulario()
 
     $("#btnBuscarLibro").click(function() {
       var q = $("#libroBusqueda").val().trim()
@@ -312,6 +290,30 @@ function abrirContacto() {
         if (q) cargarLibros(q)
       }
     })
+  })
+}
+
+function abrirContacto() {
+  cambiarContenido(`
+    <div class="contacto-wrapper">
+      <h2 class="contacto-titulo text-center mb-4">Envía un mensaje al Inframundo</h2>
+      <div class="contacto-form-box">
+        <form id="contactForm" novalidate>
+          <input class="form-campo" type="text" name="nombre" placeholder="Tu nombre" required>
+          <p class="form-error-msg" id="err-nombre">Por favor introduce tu nombre.</p>
+          <input class="form-campo" type="email" name="email" placeholder="Tu email" required>
+          <p class="form-error-msg" id="err-email">Introduce un email válido.</p>
+          <textarea class="form-campo" name="mensaje" placeholder="Tu mensaje..." rows="5" required></textarea>
+          <p class="form-error-msg" id="err-mensaje">El mensaje no puede estar vacío.</p>
+          <button type="submit" class="btn-enviar">Enviar mensaje</button>
+          <p class="form-feedback ok" id="form-ok">¡Mensaje enviado! Los dioses han sido notificados.</p>
+          <p class="form-feedback err" id="form-err">Algo salió mal. Inténtalo de nuevo.</p>
+        </form>
+      </div>
+    </div>
+  `, function() {
+    gsap.from(".contacto-form-box", { opacity: 0, y: 20, duration: 0.4 })
+    montarFormulario()
   })
 }
 
