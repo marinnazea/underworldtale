@@ -81,6 +81,15 @@ var personajes = [
     noLeGusta: "???"
   },
   {
+    nombre: "Hypnos",
+    categoria: "inframundo",
+    imagen: "./images/hypnos_neutral.png",
+    signo: "Capricornio",
+    descripcion: "Dios del sueño y hermano de Thanatos. Perezoso por fuera, pero su poder sobre el descanso eterno no debe subestimarse.",
+    gustos: "Dormir, la tranquilidad y los sueños",
+    noLeGusta: "El esfuerzo y las responsabilidades"
+  },
+  {
     nombre: "Thanatos",
     categoria: "inframundo",
     imagen: "./images/Thanatos.png",
