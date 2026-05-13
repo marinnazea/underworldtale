@@ -285,6 +285,10 @@ function abrirContacto() {
           <div class="col-md-6">
             <div class="contacto-libros-box">
               <h3 class="contacto-titulo" style="font-size:1.1em; margin-bottom:16px;">📚 Lecturas del Inframundo</h3>
+              <div class="libros-buscar">
+                <input type="text" id="libroBusqueda" class="form-campo libros-input" placeholder="Busca un libro...">
+                <button id="btnBuscarLibro" class="btn-buscar-libro">Buscar</button>
+              </div>
               <div id="librosContainer"><p class="libros-loading">Consultando los archivos divinos...</p></div>
             </div>
           </div>
@@ -294,13 +298,27 @@ function abrirContacto() {
   `, function() {
     gsap.from(".contacto-form-box",   { opacity: 0, y: 20, duration: 0.4 })
     gsap.from(".contacto-libros-box", { opacity: 0, y: 20, duration: 0.4, delay: 0.12 })
-    cargarLibros()
+    cargarLibros("greek mythology hades")
     montarFormulario()
+
+    $("#btnBuscarLibro").click(function() {
+      var q = $("#libroBusqueda").val().trim()
+      if (q) cargarLibros(q)
+    })
+
+    $("#libroBusqueda").keydown(function(e) {
+      if (e.key === "Enter") {
+        var q = $(this).val().trim()
+        if (q) cargarLibros(q)
+      }
+    })
   })
 }
 
-function cargarLibros() {
-  fetch("https://openlibrary.org/search.json?q=greek+mythology+hades&limit=4&fields=title,author_name,cover_i,first_publish_year")
+function cargarLibros(query) {
+  var q = encodeURIComponent(query || "greek mythology hades")
+  $("#librosContainer").html("<p class='libros-loading'>Consultando los archivos divinos...</p>")
+  fetch("https://openlibrary.org/search.json?q=" + q + "&limit=4&fields=title,author_name,cover_i,first_publish_year")
     .then(res => res.json())
     .then(data => {
       var libros = data.docs.slice(0, 4)
